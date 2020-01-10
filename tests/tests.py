@@ -33,9 +33,9 @@ class TestInitParams(TestCase):
         print("\nsetUpTestData: Run once to set up non-modified data for all class methods.\n")
         pass
 
-    def setUp(self):
-        print("\nsetUp: Run once for every test method to setup clean data.\n")
-        pass
+    #def setUp(self):
+    #    print("\nsetUp: Run once for every test method to setup clean data.\n")
+    #    pass
 
     """Check if app contains required static files"""
     def test_dbfile(self):
@@ -54,7 +54,7 @@ class TestInitParams(TestCase):
         if JSON_FILE:
             return os.path.exists(JSON_FILE)
  
-    def  setUp(self):
+    def setUp(self):
         """
         Test3: Check if json data file is readable
         """
