@@ -9,6 +9,48 @@ Example of django - GraphQL CI/CD project.
 https://github.com/NajlaBH/gql-dg-tmp.git
 
 
+### HowTo
+
+1. Clone the repository :
+
+  ```bash
+git clone https://github.com/NajlaBH/dg_gql_recipes.git
+cd dg_gql_recipes
+python3 -m venv env
+source env/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+ ```
+
+2. Make migrations :
+ 
+  ```bash
+python manage.py makemigrations
+python manage.py migrate
+ ```
+ 
+3. Create superuser (To get admin interface):
+ 
+  ```bash
+python manage.py createsuperuser
+ ```
+ 
+4. Load json data :
+ 
+  ```bash
+ python ./manage.py loaddata recipes_data.json
+ ```  
+   
+5. Run the server :
+ 
+  ```bash
+python manage.py runserver 0.0.0.0:8080
+ ```
+
+6. Examples :
+	- You can try same examples from :
+ https://github.com/NajlaBH/dg_gql_recipes/blob/master/tests/queries_test.txt
+
 ### Authors 
 NajlaBH
 
