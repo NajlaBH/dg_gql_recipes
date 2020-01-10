@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'graphene_django',
     'recipes'
 ]
 
@@ -121,3 +122,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '../'
+
+GRAPHENE = {
+    'SCHEMA': 'dg_gql_recipes.schema.schema'
+}
+

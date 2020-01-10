@@ -1,0 +1,39 @@
+##Test 1
+
+query {
+  allCategories {
+    id
+    name
+    ingredients {
+      id
+      name
+    }
+  }
+}
+
+# Test 2
+
+query {
+  allIngredients {
+    id
+    name
+    category {
+      id
+      name
+    }
+  }
+}
+
+# Test 3
+
+query {
+  category(id: 1) {
+    name
+  }
+  anotherCategory: category(name: "Dairy") {
+    ingredients {
+      id
+      name
+    }
+  }
+}

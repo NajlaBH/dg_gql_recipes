@@ -1,0 +1,20 @@
+language: python
+dist: buster
+
+python:
+  - '3.8.1'
+
+services:
+  - docker
+
+
+install:
+  - pip install -r requirements.txt
+
+script:
+  - ./run_test.sh
+
+notifications:
+  email:
+    on_success: change  # [always|never|change]
+    on_failure: always  # [always|never|change]
