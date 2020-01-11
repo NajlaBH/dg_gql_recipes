@@ -8,17 +8,18 @@ from graphene_django.types import DjangoObjectType
 
 from recipes.models import IngredientCategory, Ingredient
 
+from recipes.types import IngredientCategoryType, IngredientType
 
-class IngredientCategoryType(DjangoObjectType):
-    class Meta:
-        model = IngredientCategory
-
-
-class IngredientType(DjangoObjectType):
-    class Meta:
-        model = Ingredient
 
 class Query(object):
+    """
+    Class for Queries creation :
+    query1 -  all categories
+    query2 -  all ingredients
+    query3 -  by categry
+
+    """
+
     category = graphene.Field(IngredientCategoryType,
                         id=graphene.Int(),
                         name=graphene.String())
