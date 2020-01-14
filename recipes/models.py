@@ -27,8 +27,8 @@ class Ingredient(models.Model):
         IngredientCategory, related_name='ingredients', on_delete=models.CASCADE)
 
 class Recipe(models.Model):
-    title = models.CharField(max_length=100)
-    description = models.CharField(max_length=200)
+    title = models.CharField(max_length=100,unique=True)
+    description = models.CharField(max_length=200,unique=True)
     ingredients = models.ManyToManyField(Ingredient)
     #recipetag = models.ForeignKey(
     #    RecipeCategory, related_name='recipes', on_delete=models.CASCADE)

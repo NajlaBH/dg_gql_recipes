@@ -56,3 +56,59 @@ mutation updateIngredient{
         ok
     }
 }
+
+#Test 5 : Create Recipe
+mutation createRecipe {
+  createRecipe(input: {
+    title: "Choclate Cake",
+    ingredients: [
+      {
+        id: 2
+      },
+      { id: 11
+      }
+    ]
+    description : "recipe easy made. :)"
+  }) {
+    ok
+    recipe{
+      id
+      title
+      ingredients {
+        id
+        name
+      }
+      description
+    }
+  }
+}
+
+#Test 5 : Update Recipe
+mutation updateRecipe {
+  updateRecipe(id: 1, input: {
+    title: "Chocolate Cake",
+    ingredients: [
+      {
+        id: 1
+      },
+      {
+        id: 2
+      },
+      { 
+        id: 11
+      }
+    ]
+    description : "Awesome recipe easy made. :)"
+  }) {
+    ok
+    recipe{
+      id
+      title
+      ingredients {
+        id
+        name
+      }
+      description
+    }
+  }
+}

@@ -191,8 +191,11 @@ class UpdateIngredient(graphene.Mutation):
         return UpdateIngredient(ok=ok, ingredient=None) 
 
 
-# Create mutations for recipes
+# Create mutations for recipes:: create
 class CreateRecipe(graphene.Mutation):
+    """
+    Create Recipe from mutation
+    """
     class Arguments:
         input = RecipeInput(required=True)
 
@@ -216,6 +219,40 @@ class CreateRecipe(graphene.Mutation):
         ingredient_instance.ingredients.set(ingredients)
         return CreateRecipe(ok=ok, recipe=ingredient_instance)
 
+
+# Create mutations for recipes:: update
+class UpdateRecipe(graphene.Mutation):
+    """
+    Update Recipe from mutation
+    """
+
+    class Arguments:
+        id = graphene.Int(required=True)
+        input = RecipeInput(required=True)
+
+    ok = graphene.Boolean()
+    recipe = graphene.Field(RecipeType)
+
+    @staticmethod
+    def mutate(root, info, id, input=None):
+        ok = False
+        recipe_instance = Recipe.objects.get(pk=id)
+        if recipe_instance:
+            ok = True
+            ingredients = []
+            for ingred_input in input.ingredients:
+              ingredient = Ingredient.objects.get(pk=ingred_input.id)
+              if ingredient is None:
+                return UpdateRecipe(ok=False, recipe=None)
+              ingredients.append(ingredient)
+            recipe_instance.title=input.title
+            recipe_instance.description=input.description
+            recipe_instance.save()
+            recipe_instance.ingredients.set(ingredients)
+            return UpdateRecipe(ok=ok, recipe=recipe_instance)
+        return UpdateRecipe(ok=ok, recipe=None)
+
+
 class Mutation(graphene.ObjectType):
     """
     Class for mutations creation
@@ -224,10 +261,12 @@ class Mutation(graphene.ObjectType):
     - Create an ingredient
     - Update an ingredient
     - Create recipe
+    - Update recipe
     """
     create_ingredientCategory = CreateIngredientcategory.Field()
     update_ingredientCategory = UpdateIngredientcategory.Field()
     create_ingredient = CreateIngredient.Field()
     update_ingredient = UpdateIngredient.Field()
     create_recipe = CreateRecipe.Field()
+    update_recipe = UpdateRecipe.Field()
     

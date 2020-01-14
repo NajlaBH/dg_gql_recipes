@@ -62,7 +62,6 @@ query getSpecificIngredient{
     notes
   }
 }
-
 # Test 7: Get all recipes
 query {
   allRecipes {
@@ -72,7 +71,7 @@ query {
       id
       name
     }
+    description
   }
 }
-
 
