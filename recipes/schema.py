@@ -6,7 +6,7 @@ import graphene
 
 from graphene_django.types import DjangoObjectType
 
-from recipes.models import IngredientCategory, Ingredient
+from recipes.models import IngredientCategory, Ingredient, Recipe
 
 from recipes.types import *
 
@@ -34,12 +34,20 @@ class Query(object):
                             name=graphene.String())
     all_ingredients = graphene.List(IngredientType)
 
+
+    recipe = graphene.Field(RecipeType, id=graphene.Int())
+    
+    all_recipes = graphene.List(RecipeType)
+
     def resolve_all_categories(self, info, **kwargs):
         return IngredientCategory.objects.all()
 
     def resolve_all_ingredients(self, info, **kwargs):
         # We can easily optimize query count in the resolve method
         return Ingredient.objects.select_related('category').all()
+
+    def resolve_all_recipes(self, info, **kwargs):
+        return Recipe.objects.all()
 
     def resolve_ingredientCategory(self, info, **kwargs):
           id = kwargs.get('id')
@@ -77,6 +85,19 @@ class Query(object):
 
           return None
 
+    
+    def resolve_recipe(self, info, **kwargs):
+          id = kwargs.get('id')
+          title = kwargs.get('title')
+
+          if id is not None:
+              return Recipe.objects.get(pk=id)
+
+          if title is not None:
+              return Recipe.objects.get(title=title)
+
+          return None
+    
 
 # Create mutations for ingredientCategory
 class CreateIngredientcategory(graphene.Mutation):
@@ -169,6 +190,32 @@ class UpdateIngredient(graphene.Mutation):
             return UpdateIngredient(ok=ok, ingredient=igi)
         return UpdateIngredient(ok=ok, ingredient=None) 
 
+
+# Create mutations for recipes
+class CreateRecipe(graphene.Mutation):
+    class Arguments:
+        input = RecipeInput(required=True)
+
+    ok = graphene.Boolean()
+    recipe = graphene.Field(RecipeType)
+
+    @staticmethod
+    def mutate(root, info, input=None):
+        ok = True
+        ingredients = []
+        for ingredient_input in input.ingredients:
+          ingredient = Ingredient.objects.get(pk=ingredient_input.id)
+          if ingredient is None:
+            return CreateRecipe(ok=False, recipe=None)
+          ingredients.append(ingredient)
+        ingredient_instance = Recipe(
+          title=input.title,
+          description=input.description
+          )
+        ingredient_instance.save()
+        ingredient_instance.ingredients.set(ingredients)
+        return CreateRecipe(ok=ok, recipe=ingredient_instance)
+
 class Mutation(graphene.ObjectType):
     """
     Class for mutations creation
@@ -176,8 +223,11 @@ class Mutation(graphene.ObjectType):
     - Update an ingredientCategory
     - Create an ingredient
     - Update an ingredient
+    - Create recipe
     """
     create_ingredientCategory = CreateIngredientcategory.Field()
     update_ingredientCategory = UpdateIngredientcategory.Field()
     create_ingredient = CreateIngredient.Field()
     update_ingredient = UpdateIngredient.Field()
+    create_recipe = CreateRecipe.Field()
+    
