@@ -1,0 +1,5 @@
+# Test 1 : Search, Get Oil ingredient // id 11
+http://yourserveradress:8080/graphiql/?search={%20ingredient(id:%2011)%20{name,category%20{id},notes}}
+
+# Test 1 : Search, Get Fruit category // id 5
+http://192.168.99.100:8080/graphiql/?search={ingredientCategory(id:%205)%20{name}}
