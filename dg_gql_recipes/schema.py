@@ -11,4 +11,8 @@ class Query(recipes.schema.Query, graphene.ObjectType):
     # This class will inherit from multiple Queries
     pass
 
-schema = graphene.Schema(query=Query)
+class Mutation(recipes.schema.Mutation, graphene.ObjectType):
+    # This class will inherit from multiple Queries
+    pass
+
+schema = graphene.Schema(query=Query, mutation=Mutation)

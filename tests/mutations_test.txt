@@ -1,0 +1,26 @@
+#Test 1 : create ingredientCategory
+mutation createCategoryIngredient {
+    createIngredientcategory(input:{
+   		name:"some"   
+    }) {
+        ingredientCategory {
+            id
+          	name
+        }
+        ok
+    }
+}
+
+
+#Test 2: update ingredientCategory
+mutation updateCategoryIngredient {
+    updateIngredientcategory(id: 3, input:{
+   		name:"Wetty"   
+    }) {
+        ingredientCategory {
+            id
+          	name
+        }
+        ok
+    }
+}

@@ -37,3 +37,10 @@ query {
     }
   }
 }
+
+# Test 4
+query getSpecificCategory{
+  category(id: 3) {
+    name
+  }
+}

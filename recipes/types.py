@@ -9,6 +9,7 @@ from graphene_django.types import DjangoObjectType
 from recipes.models import IngredientCategory, Ingredient
 
 
+# Create Django Object Types
 class IngredientCategoryType(DjangoObjectType):
     class Meta:
         model = IngredientCategory
@@ -17,3 +18,15 @@ class IngredientCategoryType(DjangoObjectType):
 class IngredientType(DjangoObjectType):
     class Meta:
         model = Ingredient
+
+
+# Create Graphen Input Object Types
+class IngredientCategoryInput(graphene.InputObjectType):
+    id = graphene.ID()
+    name = graphene.String()
+
+class IngredientInput(graphene.InputObjectType):
+    id = graphene.ID()
+    name = graphene.String()
+    notes = graphene.String()
+    category = graphene.String()
