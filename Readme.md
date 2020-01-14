@@ -48,8 +48,10 @@ python manage.py runserver 0.0.0.0:8080
  ```
 
 6. Examples :
-	- You can try same examples from :
+	- You can try same queries examples from :
  https://github.com/NajlaBH/dg_gql_recipes/blob/master/tests/queries_test.txt
+	- You can try some mutations examples from : 
+ https://github.com/NajlaBH/dg_gql_recipes/blob/master/tests/mutations_test.txt
 
 ### Authors 
 NajlaBH

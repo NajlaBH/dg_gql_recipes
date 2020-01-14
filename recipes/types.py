@@ -29,4 +29,4 @@ class IngredientInput(graphene.InputObjectType):
     id = graphene.ID()
     name = graphene.String()
     notes = graphene.String()
-    category = graphene.String()
+    category = graphene.Int()

@@ -1,4 +1,4 @@
-##Test 1
+# Test 1: List of all categories by ingredients in details
 
 query {
   allCategories {
@@ -11,7 +11,7 @@ query {
   }
 }
 
-# Test 2
+# Test 2: List of all ingredients by category in details
 
 query {
   allIngredients {
@@ -24,7 +24,7 @@ query {
   }
 }
 
-# Test 3
+# Test 3 : Get one category by id and name based on category field from ingredient model
 
 query {
   category(id: 1) {
@@ -38,9 +38,27 @@ query {
   }
 }
 
-# Test 4
+# Test 4 : Get one category by id based on category field from ingredient model
 query getSpecificCategory{
   category(id: 3) {
     name
+  }
+}
+
+# Test 5: Get one category by id and name based on ingredientCategory field from ingredientCategory model
+query getIngredientCategory{
+  ingredientCategory(id: 5) {
+    name
+  }
+}
+
+# Test 6: Get one ingredient by id 
+query getSpecificIngredient{
+  ingredient(id: 11) {
+    name,
+    category {
+      id
+    },
+    notes
   }
 }
