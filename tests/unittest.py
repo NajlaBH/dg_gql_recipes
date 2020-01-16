@@ -6,6 +6,8 @@ import sqlite3
 import os
 import unittest
 
+import json
+
 
 # GLOBAL VARS
 ABS_PATH = os.getcwd()
@@ -50,6 +52,7 @@ class TestInitParamsUnittest(unittest.TestCase):
         self.testfile = open(JSON_FILE)
         self.testdata = self.testfile.read()
         self.testfile.close()
-
+    
     ##TODO##
     #check if json file is not empty
+

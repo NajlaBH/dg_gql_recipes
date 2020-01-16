@@ -74,4 +74,9 @@ query {
     description
   }
 }
-
+# Test 8: Get one recipes by id
+query getRecipe{
+  recipe(id: 3) {
+    title
+  }
+}

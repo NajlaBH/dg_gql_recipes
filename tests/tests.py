@@ -62,6 +62,8 @@ class TestInitParams(TestCase):
         self.testfile = open(JSON_FILE)
         self.testdata = self.testfile.read()
         self.testfile.close()
+   
 
+       
     ##TODO##
     #check if json file is not empty

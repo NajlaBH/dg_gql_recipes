@@ -19,25 +19,28 @@ class Query(object):
     query3 -  by category
 
     """
-
     ingredientCategory = graphene.Field(IngredientCategoryType,
                         id=graphene.Int(),
-                        name=graphene.String())
+                        name=graphene.String(),
+                        description="Get Ingredient Category by name")
 
     category = graphene.Field(IngredientCategoryType,
                         id=graphene.Int(),
-                        name=graphene.String())
-    all_categories = graphene.List(IngredientCategoryType)
+                        name=graphene.String(),
+                        description="Get Category by name")
+
+    all_categories = graphene.List(IngredientCategoryType,
+    description="Get All categories")
 
     ingredient = graphene.Field(IngredientType,
                             id=graphene.Int(),
-                            name=graphene.String())
-    all_ingredients = graphene.List(IngredientType)
+                            name=graphene.String(),
+                            description="Get Ingredient by name")
+    all_ingredients = graphene.List(IngredientType,description="Get the list of Ingredients")
 
-
-    recipe = graphene.Field(RecipeType, id=graphene.Int())
+    recipe = graphene.Field(RecipeType, id=graphene.Int(), description="Get Recipe by title")
     
-    all_recipes = graphene.List(RecipeType)
+    all_recipes = graphene.List(RecipeType, description="Get All Recipes")
 
     def resolve_all_categories(self, info, **kwargs):
         return IngredientCategory.objects.all()
@@ -50,53 +53,53 @@ class Query(object):
         return Recipe.objects.all()
 
     def resolve_ingredientCategory(self, info, **kwargs):
-          id = kwargs.get('id')
-          name = kwargs.get('name')
+        id = kwargs.get('id')
+        name = kwargs.get('name')
 
-          if id is not None:
-              return IngredientCategory.objects.get(pk=id)
+        if id is not None:
+            return IngredientCategory.objects.get(pk=id)
 
-          if name is not None:
-              return IngredientCategory.objects.get(name=name)
+        if name is not None:
+            return IngredientCategory.objects.get(name=name)
 
-          return None
+        return None
 
     def resolve_category(self, info, **kwargs):
-          id = kwargs.get('id')
-          name = kwargs.get('name')
+        id = kwargs.get('id')
+        name = kwargs.get('name')
 
-          if id is not None:
-              return IngredientCategory.objects.get(pk=id)
+        if id is not None:
+            return IngredientCategory.objects.get(pk=id)
 
-          if name is not None:
-              return IngredientCategory.objects.get(name=name)
+        if name is not None:
+            return IngredientCategory.objects.get(name=name)
 
-          return None
+        return None
 
     def resolve_ingredient(self, info, **kwargs):
-          id = kwargs.get('id')
-          name = kwargs.get('name')
+        id = kwargs.get('id')
+        name = kwargs.get('name')
 
-          if id is not None:
-              return Ingredient.objects.get(pk=id)
+        if id is not None:
+            return Ingredient.objects.get(pk=id)
 
-          if name is not None:
-              return Ingredient.objects.get(name=name)
+        if name is not None:
+            return Ingredient.objects.get(name=name)
 
-          return None
+        return None
 
     
     def resolve_recipe(self, info, **kwargs):
-          id = kwargs.get('id')
-          title = kwargs.get('title')
+        id = kwargs.get('id')
+        title = kwargs.get('title')
 
-          if id is not None:
-              return Recipe.objects.get(pk=id)
+        if id is not None:
+            return Recipe.objects.get(pk=id)
 
-          if title is not None:
-              return Recipe.objects.get(title=title)
+        if title is not None:
+            return Recipe.objects.get(title=title)
 
-          return None
+        return None
     
 
 # Create mutations for ingredientCategory
