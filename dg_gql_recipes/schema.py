@@ -6,7 +6,6 @@ import graphene
 
 import recipes.schema
 
-
 class Query(recipes.schema.Query, graphene.ObjectType):
     """
     An example of queries is available under tests/queries_test.txt

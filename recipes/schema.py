@@ -5,42 +5,63 @@
 import graphene
 
 from graphene_django.types import DjangoObjectType
+from graphene import ObjectType
+from graphene_django.filter import DjangoFilterConnectionField
 
 from recipes.models import IngredientCategory, Ingredient, Recipe
-
 from recipes.types import *
 
 
-class Query(object):
+class Query(ObjectType):
     """
     Class for Queries creation :
     query1 -  all categories
     query2 -  all ingredients
-    query3 -  by category
-
+    query3 -  ingredient category by name
+    query4 -  ingredient by category
+    query5 -  ingredient by name
+    query6 -  by recipe
+    query7 -  all recipes
+    
+    query8 - Make filter :
+        - to comment (L63,L64) if you want to test file queries_test
+        - to uncomment  (L63,L64) if you want to test file queries_filter_test
     """
+
+    #Query 1
+    all_categories = graphene.List(IngredientCategoryType,
+    description="Get All categories")
+
+    #Query 2
+    all_ingredients = graphene.List(IngredientType,description="Get the list of Ingredients")
+
+    #Query 3
     ingredientCategory = graphene.Field(IngredientCategoryType,
                         id=graphene.Int(),
                         name=graphene.String(),
                         description="Get Ingredient Category by name")
 
+    #Query 4
     category = graphene.Field(IngredientCategoryType,
                         id=graphene.Int(),
                         name=graphene.String(),
                         description="Get Category by name")
 
-    all_categories = graphene.List(IngredientCategoryType,
-    description="Get All categories")
-
+    #Query 5
     ingredient = graphene.Field(IngredientType,
                             id=graphene.Int(),
                             name=graphene.String(),
                             description="Get Ingredient by name")
-    all_ingredients = graphene.List(IngredientType,description="Get the list of Ingredients")
 
+    #Query 6                      
     recipe = graphene.Field(RecipeType, id=graphene.Int(), description="Get Recipe by title")
     
+    #Query 7
     all_recipes = graphene.List(RecipeType, description="Get All Recipes")
+
+    #Query 8 : filter to comment if you want the basic schema without filter :)
+    ingredientFilter = relay.Node.Field(IngredientNode)
+    all_ingredientFilter = DjangoFilterConnectionField(IngredientNode,description="Get All Filtered")
 
     def resolve_all_categories(self, info, **kwargs):
         return IngredientCategory.objects.all()
@@ -100,7 +121,7 @@ class Query(object):
             return Recipe.objects.get(title=title)
 
         return None
-    
+
 
 # Create mutations for ingredientCategory
 class CreateIngredientcategory(graphene.Mutation):
