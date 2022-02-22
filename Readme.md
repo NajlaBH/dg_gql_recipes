@@ -2,7 +2,6 @@
 Example of django - GraphQL CI/CD project.
 
 [![Build Status](https://travis-ci.org/NajlaBH/dg_gql_recipes.svg?branch=master)](https://travis-ci.org/NajlaBH/dg_gql_recipes)
-[![CircleCI](https://circleci.com/gh/NajlaBH/dg_gql_recipes.svg?style=svg)](https://circleci.com/gh/NajlaBH/dg_gql_recipes)
 [![DJANGO:version](https://img.shields.io/badge/Django-2.2.27-blue.svg)](https://www.djangoproject.com/download)
 
 ### Getting Started
